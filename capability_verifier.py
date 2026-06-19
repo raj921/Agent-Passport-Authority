@@ -11,7 +11,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 
 from band import Agent
 from band.adapters import LangGraphAdapter
-from band.config import load_agent_config
+from config import agent_config
     
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -67,7 +67,7 @@ def capability_verifier(
 async def main():
   load_dotenv()
 
-  agent_id, api_key = load_agent_config("capability_verifier")
+  agent_id, api_key = agent_config("capability_verifier")
 
   llm = ChatOpenAI(
     model="openai/gpt-5.4-mini",

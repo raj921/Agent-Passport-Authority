@@ -11,7 +11,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 
 from band import Agent
 from band.adapters import LangGraphAdapter
-from band.config import load_agent_config
+from config import agent_config
     
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -71,7 +71,7 @@ def security_probe(
 async def main() -> None:
     load_dotenv()
 
-    agent_id, api_key = load_agent_config("security_probe")
+    agent_id, api_key = agent_config("security_probe")
 
     llm = ChatOpenAI(
         model="openai/gpt-5.4-mini",

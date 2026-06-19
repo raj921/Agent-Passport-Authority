@@ -39,6 +39,39 @@ Setup
 
 The app runs at `http://127.0.0.1:8000/`.
 
+Render Deployment
+-----------------
+
+Use these settings for a Render Python web service:
+
+- Branch: `codex/agent-passport-authority`
+- Build Command: `uv sync --frozen && cd frontend && npm ci && npm run build`
+- Start Command: `./render_start.sh`
+
+Set these environment variables in Render:
+
+- `BAND_API_KEY`
+- `PASSPORT_AUTHORITY_ID`
+- `BAND_ROOM_ID`
+- `PA_MENTION_ID`
+- `PA_MENTION_HANDLE`
+- `PASSPORT_OBSERVER_ID`
+- `PASSPORT_OBSERVER_KEY`
+- `PASSPORT_OBSERVER_HANDLE`
+- `SECURITY_PROBE_ID`
+- `SECURITY_PROBE_KEY`
+- `CAPABILITY_VERIFIER_ID`
+- `CAPABILITY_VERIFIER_KEY`
+- `COMPLIANCE_AGENT_ID`
+- `COMPLIANCE_AGENT_KEY`
+- `OPENROUTER_API_KEY`
+
+Optional:
+
+- `BAND_REST_URL`
+- `BAND_WS_URL`
+- `LOCAL_FALLBACK_SECONDS`
+
 Useful Commands
 ---------------
 

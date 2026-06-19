@@ -10,8 +10,8 @@ from langchain_core.tools import tool
 from langgraph.checkpoint.memory import InMemorySaver
 from band import Agent
 from band.adapters import LangGraphAdapter
-from band.config import load_agent_config
 from band.core.types import AdapterFeatures
+from config import agent_config
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -279,7 +279,7 @@ def issue_passport(
 async def main():
     load_dotenv()
 
-    agent_id, api_key = load_agent_config("passport_authority")  # keep your existing key
+    agent_id, api_key = agent_config("passport_authority")
 
     llm = ChatOpenAI(
         model="openai/gpt-5.4-mini",
