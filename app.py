@@ -27,11 +27,11 @@ from pydantic import BaseModel
 
 load_dotenv()
 
-BAND_API_KEY = os.environ["BAND_API_KEY"]
+BAND_API_KEY = os.environ.get("BAND_API_KEY", "")
 BAND_REST_URL = os.environ.get("BAND_REST_URL", "https://app.band.ai").rstrip("/")
-BAND_ROOM_ID = os.environ["BAND_ROOM_ID"]
-PA_MENTION_ID = os.environ["PA_MENTION_ID"]
-PA_MENTION_HANDLE = os.environ["PA_MENTION_HANDLE"]
+BAND_ROOM_ID = os.environ.get("BAND_ROOM_ID", "")
+PA_MENTION_ID = os.environ.get("PA_MENTION_ID", "")
+PA_MENTION_HANDLE = os.environ.get("PA_MENTION_HANDLE", "")
 
 DB_PATH = os.environ.get("DB_PATH", "passports.db")
 
@@ -117,6 +117,18 @@ class PassportResponse(BaseModel):
 def post_to_band(request_id: str, body: PassportRequest) -> None:
     # Post as the observer agent (not PA — PA cannot mention itself).
     # PA wakes via room presence + @mention from a non-self participant.
+    missing = [
+        name
+        for name, value in {
+            "BAND_ROOM_ID": BAND_ROOM_ID,
+            "PA_MENTION_ID": PA_MENTION_ID,
+            "PA_MENTION_HANDLE": PA_MENTION_HANDLE,
+            "PASSPORT_OBSERVER_KEY": os.environ.get("PASSPORT_OBSERVER_KEY", ""),
+        }.items()
+        if not value
+    ]
+    if missing:
+        raise HTTPException(503, "missing Render env vars: " + ", ".join(missing))
     observer_key = os.environ.get("PASSPORT_OBSERVER_KEY")
     observer_handle = os.environ.get("PASSPORT_OBSERVER_HANDLE", "passport_observer")
     if not observer_key:
