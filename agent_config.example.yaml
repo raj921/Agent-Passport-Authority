@@ -1,0 +1,19 @@
+passport_authority:
+  agent_id: "your-passport-authority-agent-id"
+  api_key: "band_a_your_passport_authority_key"
+
+security_probe:
+  agent_id: "your-security-probe-agent-id"
+  api_key: "band_a_your_security_probe_key"
+
+capability_verifier:
+  agent_id: "your-capability-verifier-agent-id"
+  api_key: "band_a_your_capability_verifier_key"
+
+compliance_agent:
+  agent_id: "your-compliance-agent-agent-id"
+  api_key: "band_a_your_compliance_agent_key"
+
+passport_observer:
+  agent_id: "your-passport-observer-agent-id"
+  api_key: "band_a_your_passport_observer_key"
