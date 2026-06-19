@@ -16,12 +16,18 @@ export type Passport = {
   decided_at: string | null
 }
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ?? ""
+
+function apiPath(path: string) {
+  return `${API_BASE}${path}`
+}
+
 export async function submitPassport(
   agent_name: string,
   submitted_context: string,
   requested_permissions: string[],
 ): Promise<Passport> {
-  const r = await fetch("/passport", {
+  const r = await fetch(apiPath("/passport"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ agent_name, submitted_context, requested_permissions }),
@@ -31,13 +37,13 @@ export async function submitPassport(
 }
 
 export async function getPassport(request_id: string): Promise<Passport> {
-  const r = await fetch(`/passport/${request_id}`)
+  const r = await fetch(apiPath(`/passport/${request_id}`))
   if (!r.ok) throw new Error(`get failed: ${r.status}`)
   return r.json()
 }
 
 export async function listPassports(): Promise<Passport[]> {
-  const r = await fetch("/passports")
+  const r = await fetch(apiPath("/passports"))
   if (!r.ok) return []
   return r.json()
 }
